@@ -1,0 +1,59 @@
+
+.dancing-script-medium {
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+.header {
+  margin-top: 15px;
+  border-radius: 35px;
+  border: 1px solid rgb(103, 99, 99);
+  background-color: gainsboro;
+  /* background: rgb(255, 255, 255); */
+  /* background-image: url(..//src/image/onegdogBG.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  min-height: 300px;
+  filter: brightness(0.8); */
+}
+.ava:hover{
+  filter: brightness(70%);
+}
+.logoOnegog{
+  text-shadow: 1px 1px 1px black;
+  color: rgb(233, 137, 11);
+  margin-top: 5px;
+  margin-left: 15px;
+  font-size: 2.5rem;
+}
+.logoOnegog span{
+  color: rgb(7, 133, 80);
+}
+body{
+  background-image: url(..//src/image/pexels.jpg);
+  width: 100%;
+  min-height: 500px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.btnMenu{
+  width: 40px;
+  height: 40px;
+}
+.menuBox a:hover{
+  background-color: blue;
+
+}
+.blockOneDog{
+  margin-top: 150px;
+  background-image: url(..//src/image/onegdogBG.jpg);
+  width: 100%;
+  border-radius: 25px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
