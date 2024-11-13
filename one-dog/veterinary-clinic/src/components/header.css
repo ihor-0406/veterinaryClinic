@@ -39,3 +39,11 @@
     background-color: blue;
   
   }
+.iconAvatar:hover{
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid balck;
+
+  border-radius: 50%;
+
+}

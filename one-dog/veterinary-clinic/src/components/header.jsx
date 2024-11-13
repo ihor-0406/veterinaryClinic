@@ -33,13 +33,6 @@ const Header = () => {
         localStorage.setItem('appVersion', appVersion);
     }
 
-    const avatarStyle = {
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        backgroundColor: 'white',
-    };
-
     const logoStyle = {
         fontSize: '0.9rem',
     };
@@ -70,18 +63,18 @@ const Header = () => {
                     </Link>
                 </div>
                 {isLoggedIn ? (
-                    <div className="d-flex justify-content-start align-items-center">
+                    <div className="d-flex justify-content-between align-items-center ">
                         <button className="btn">
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
-                        <button className="btn">
+                        <button className="btn me-2">
                             <FontAwesomeIcon icon={faBell} />
                         </button>
-                        <div className="nav-item dropdown">
-                        <button className="nav-link dropdown-toggle p-0 border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false" style={avatarStyle}>
+                        <div className="nav-item dropdown me-3">
+                        <button className="nav-link dropdown p-0  bg-transparent " data-bs-toggle="dropdown" aria-expanded="false">
                                 <FontAwesomeIcon icon={faUser} />
                             </button>
-                            <ul className="dropdown-menu dropdown-menu-start dropdown-menu-dark">
+                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
                                 <li><Link className="dropdown-item" to="/profile">Профіль</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li><button className="dropdown-item" onClick={handleLogout}>Вийти</button></li>
