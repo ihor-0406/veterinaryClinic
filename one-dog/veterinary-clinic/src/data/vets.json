@@ -1,0 +1,90 @@
+{
+    "vets": [
+      {
+        "id": "vet1",
+        "name": "Олександр Іванов",
+        "specialization": "Хірург",
+        "contact": {
+          "phone": "+380501234567",
+          "email": "ivanov@example.com"
+        },
+        "workingHours": {
+          "mondayToFriday": "08:00-19:00",
+          "saturday": "09:00-15:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet2",
+        "name": "Марія Петренко",
+        "specialization": "Терапевт",
+        "contact": {
+          "phone": "+380501234568",
+          "email": "petrenko@example.com"
+        },
+        "workingHours": {
+          "mondayToFriday": "08:00-19:00",
+          "saturday": "09:00-15:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet3",
+        "name": "Андрій Коваленко",
+        "specialization": "Кардіолог",
+        "contact": {
+          "phone": "+380501234569",
+          "email": "kovalenko@example.com"
+        },
+        "workingHours": {
+          "mondayToFriday": "08:00-19:00",
+          "saturday": "09:00-15:00",
+          "sunday": "Вихідний"
+        }
+      }
+    ],
+    "medicalStaff": [
+      {
+        "id": "staff1",
+        "name": "Олена Шевченко",
+        "position": "Медсестра",
+        "contact": {
+          "phone": "+380501234570",
+          "email": "shevchenko@example.com"
+        },
+        "workingHours": {
+          "mondayToFriday": "08:00-19:00",
+          "saturday": "09:00-15:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "staff2",
+        "name": "Вікторія Гончар",
+        "position": "Асистент ветеринара",
+        "contact": {
+          "phone": "+380501234571",
+          "email": "gonchar@example.com"
+        },
+        "workingHours": {
+          "mondayToFriday": "08:00-19:00",
+          "saturday": "09:00-15:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "staff3",
+        "name": "Ірина Лисенко",
+        "position": "Лаборант",
+        "contact": {
+          "phone": "+380501234572",
+          "email": "lysenko@example.com"
+        },
+        "workingHours": {
+          "mondayToFriday": "08:00-19:00",
+          "saturday": "09:00-15:00",
+          "sunday": "Вихідний"
+        }
+      }
+    ]
+  }

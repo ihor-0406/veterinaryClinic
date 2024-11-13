@@ -4,6 +4,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw, faUser, faMagnifyingGlass, faBell } from '@fortawesome/free-solid-svg-icons';
+import './header.css'
 
 const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(true);

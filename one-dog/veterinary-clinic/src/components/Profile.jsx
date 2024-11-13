@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { auth, db } from '../config/firebaseConfig';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import './profile.css';
 
 const Profile = () => {
   const [avatar, setAvatar] = useState(null);
@@ -18,8 +20,13 @@ const Profile = () => {
   const [birthDate, setBirthDate] = useState('');
   const [age, setAge] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Состояние для отслеживания загрузки
+  const [isLoading, setIsLoading] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -28,14 +35,10 @@ const Profile = () => {
       } else {
         navigate('/login');
       }
-      setIsLoading(false); // Завершаем загрузку, когда состояние пользователя проверено
+      setIsLoading(false);
     });
 
-    const loadingTimeOut = setTimeout(()=>{
-        setIsLoading(false);
-    },4500)
-
-    return () => unsubscribe(); // Отписка при размонтировании компонента
+    return () => unsubscribe();
   }, [navigate]);
 
   const fetchProfileData = async (user) => {
@@ -44,7 +47,7 @@ const Profile = () => {
       const docSnap = await getDoc(userDoc);
       if (docSnap.exists()) {
         const data = docSnap.data();
-        setAvatar(localStorage.getItem('avatar') || null); // Загружаем аватар из LocalStorage
+        setAvatar(localStorage.getItem('avatar') || null);
         setName(data.name || '');
         setSurname(data.surname || '');
         setPhone(data.phone || '');
@@ -106,8 +109,35 @@ const Profile = () => {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    const user = auth.currentUser;
+    if (user) {
+      const credential = EmailAuthProvider.credential(confirmEmail, confirmPassword);
+      try {
+        await reauthenticateWithCredential(user, credential);
+        await deleteDoc(doc(db, 'users', user.uid));
+        await user.delete();
+        console.log('Аккаунт успешно удален');
+        navigate('/signup');
+      } catch (error) {
+        console.error('Ошибка при удалении аккаунта:', error);
+        setError('Неправильный email или пароль');
+      }
+    }
+  };
+
+  const openDeleteModal = () => {
+    setShowDeleteModal(true);
+    setError('');
+  };
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setConfirmEmail('');
+    setConfirmPassword('');
+  };
+
   if (isLoading) {
-    // Анимация загрузки
     return (
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="spinner-border text-primary" role="status">
@@ -117,15 +147,22 @@ const Profile = () => {
     );
   }
 
+  const isMainProfile = location.pathname === '/profile';
+
   return (
     <div className="container my-5">
+      <div className="d-flex justify-content-end text-center me-4">
+          <button onClick={openDeleteModal} className="btn border border-black border border-bottom-0 bg-danger-subtle rounded-3 rounded-bottom-0">
+            &#10005;
+          </button>
+        </div>
       <div className="card shadow p-4">
         <h1 className="text-center mb-4">Профіль</h1>
-
         <div className="row">
           <div className="col-12 col-md-4 text-center mb-4">
             <label htmlFor="avatarInput" className="d-flex justify-content-center align-items-center" style={{ cursor: 'pointer' }}>
-              {avatar ? (<img src={avatar} alt="Avatar" className="rounded-circle mb-3 border border-3 border-black" style={{ width: '350px', height: '350px', objectFit: 'cover' }} />
+              {avatar ? (
+                <img src={avatar} alt="Avatar" className="rounded-circle mb-3 border border-3 border-black" style={{ width: '18rem', height: '18rem', objectFit: 'cover' }} />
               ) : (
                 <FontAwesomeIcon icon={faUserCircle} size="8x" className="text-secondary" />
               )}
@@ -153,7 +190,7 @@ const Profile = () => {
                 <input type="date" value={birthDate} onChange={(e) => { setBirthDate(e.target.value); calculateAge(e.target.value); }} className="form-control mb-2" />
               </>
             ) : (
-              <div className="px-3">
+              <div className="mt-2">
                 <p><strong>Ім'я:</strong> {name}</p>
                 <p><strong>Прізвище:</strong> {surname}</p>
                 <p><strong>Телефон:</strong> {phone}</p>
@@ -166,7 +203,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="text-center mt-4">
+        <div className="text-end mt-4">
           <button onClick={handleEditToggle} className="btn btn-outline-primary me-2">
             {isEditing ? 'Скасувати' : 'Редагувати'}
           </button>
@@ -176,7 +213,70 @@ const Profile = () => {
             </button>
           )}
         </div>
+        <hr />
+
+        <ul className="nav nav-tabs">
+          <li className="nav-item">
+            <Link className="nav-link" to="pet">Питомец</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="history">Історія лікування</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="achievements">Досягнення</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="album">Фотоальбом</Link>
+          </li>
+        </ul>
+
+        <div className="tab-content mt-3">
+          {isMainProfile ? (
+            <div>
+              {/* Основная информация профиля */}
+            </div>
+          ) : (
+            <Outlet />
+          )}
+        </div>
       </div>
+
+      {/* Модальное окно подтверждения удаления */}
+      {showDeleteModal && (
+        <div className="modal show d-block" role="dialog">
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Підтвердіть видалення аккаунта</h5>
+                <button type="button" className="btn-close" onClick={closeDeleteModal}></button>
+              </div>
+              <div className="modal-body">
+                <p>Будь ласка, введіть свій email і пароль для підтвердження:</p>
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="form-control mb-2"
+                  value={confirmEmail}
+                  onChange={(e) => setConfirmEmail(e.target.value)}
+                />
+                <input
+                  type="password"
+                  placeholder="Пароль"
+                  className="form-control mb-2"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                {error && <p className="text-danger">{error}</p>}
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={closeDeleteModal}>
+                  Скасувати
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
