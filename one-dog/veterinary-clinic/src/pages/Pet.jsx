@@ -39,6 +39,19 @@ const Pet = () => {
     fetchPets();
   }, []);
 
+  // Функция для добавления уведомлений
+  const addNotification = async (message) => {
+    try {
+      await addDoc(collection(db, 'notifications'), {
+        message,
+        isRead: false,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error('Ошибка при добавлении уведомления:', error);
+    }
+  };
+
   // Обработчик изменения полей формы
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -75,6 +88,9 @@ const Pet = () => {
         specialFeatures: '',
         image: null
       });
+
+      // Добавляем уведомление о новом питомце
+      await addNotification(`Новий питомец "${newPet.name}" був успішно доданий`);
     } catch (error) {
       console.error('Ошибка при добавлении питомца:', error);
     }
@@ -92,16 +108,14 @@ const Pet = () => {
 
   return (
     <div>
-      <h2>Питомці</h2>
-
-      {/* Карточки с информацией о питомцах */}
+      <h2>Питомці</h2> {/* Карточки с информацией о питомцах */}
       <div className="d-flex flex-wrap">
         {pets.map((pet) => (
           <div key={pet.id} className="card mb-3 me-3" style={{ width: '18rem' }}>
             <div className='d-flex justify-content-end'>
-            <button onClick={() => handleDeletePet(pet.id)} className="btn btn-danger rounded-circle">
+              <button onClick={() => handleDeletePet(pet.id)} className="btn btn-danger rounded-circle">
                 &#10005;
-                </button>
+              </button>
             </div>
             {pet.image && <img src={pet.image} alt="Pet" className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover' }} />}
             <div className="card-body">
@@ -204,8 +218,7 @@ const Pet = () => {
                 checked={newPet.hadLitter}
                 onChange={handleInputChange}
                 className="form-check-input"
-              />
-              <label className="form-check-label">Був виводок</label>
+              /> <label className="form-check-label">Був виводок</label>
             </div>
           )}
           <div className="mb-3">

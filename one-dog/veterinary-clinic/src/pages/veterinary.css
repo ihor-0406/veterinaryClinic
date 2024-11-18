@@ -1,0 +1,40 @@
+.veterinary-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .appointment-section {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .services-info-section,
+  .services-list-section,
+  .pricing-section,
+  .vets-swiper-section {
+    margin-bottom: 30px;
+  }
+  
+  .pricing-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .pricing-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    width: 30%;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .vet-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
