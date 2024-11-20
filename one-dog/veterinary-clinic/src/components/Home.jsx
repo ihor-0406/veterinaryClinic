@@ -48,13 +48,10 @@ function Home() {
 
     // Функція для перенаправлення користувача
     const handleProfileRedirect = () => {
-        // Проверка авторизации пользователя через Firebase
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Если пользователь авторизован, перенаправляем в профиль
                 navigate('/Profile/History');
             } else {
-                // Если пользователь не авторизован, перенаправляем на страницу логина
                 navigate('/login');
             }
         });
@@ -97,7 +94,7 @@ function Home() {
                                 Подзвонити
                             </a>
                             <button onClick={handleProfileRedirect} className="btn btn-primary btn-lg">
-                                Увійти в кабінет
+                                Зареєструватися
                             </button>
                         </div>
                     </div>

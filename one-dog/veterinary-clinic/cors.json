@@ -1,8 +1,0 @@
-[
-    {
-        "origin":["*"],
-        "method":["GET","POST","PUT"],
-        "responseHeader":["Content-Type","Authorization"]
-
-    }
-]

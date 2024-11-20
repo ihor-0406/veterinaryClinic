@@ -2,6 +2,7 @@
     "vets": [
       {
         "id": "vet1",
+        "image":"/src/image/doctors/vet1.jpg",
         "name": "Олександр Іванов",
         "specialization": "Хірург",
         "contact": {
@@ -9,13 +10,14 @@
           "email": "ivanov@example.com"
         },
         "workingHours": {
-          "mondayToFriday": "08:00-19:00",
-          "saturday": "09:00-15:00",
+          "wednesdayToFriday": "09:00-19:00",
+          "saturday": "10:00-14:00",
           "sunday": "Вихідний"
         }
       },
       {
         "id": "vet2",
+        "image":"/src/image/doctors/vet2.jpg",
         "name": "Марія Петренко",
         "specialization": "Терапевт",
         "contact": {
@@ -30,6 +32,7 @@
       },
       {
         "id": "vet3",
+        "image":"/src/image/doctors/vet3.jpg",
         "name": "Андрій Коваленко",
         "specialization": "Кардіолог",
         "contact": {
@@ -37,8 +40,85 @@
           "email": "kovalenko@example.com"
         },
         "workingHours": {
-          "mondayToFriday": "08:00-19:00",
-          "saturday": "09:00-15:00",
+          "mondayToFriday": "09:00-18:00",
+          "saturday": "09:00-14:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet4",
+        "image": "/src/image/doctors/vet4.jpg",
+        "name": "Ірина Степанова",
+        "specialization": "Невролог",
+        "workingHours": {
+          "mondayToFriday": "09:30-17:30",
+          "saturday": "11:00-15:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet5",
+        "image":"/src/image/doctors/vet5.jpg",
+        "name": "Дмитро Литвиненко",
+        "specialization": "Ортопед",
+        "workingHours": {
+          "mondayToFriday": "08:30-16:30",
+          "saturday": "10:00-14:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet6",
+        "image": "/src/image/doctors/vet6.jpg",
+        "name": "Софія Романенко",
+        "specialization": "Терапевт",
+        "workingHours": {
+          "mondayToFriday": "09:00-17:00",
+          "saturday": "10:00-15:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet7",
+        "image": "/src/image/doctors/vet7.jpg",
+        "name": "Іван Кравченко",
+        "specialization": "Хірург",
+        "workingHours": {
+          "mondayToFriday": "08:00-16:00",
+          "saturday": "09:00-12:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet8",
+        "image": "/src/image/doctors/vet8.jpg",
+        "name": "Катерина Бойко",
+        "specialization": "Офтальмолог",
+        "workingHours": {
+          "mondayToFriday": "09:30-17:30",
+          "saturday": "10:00-13:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet9",
+        "image": "/src/image/doctors/vet9.jpg",
+        "name": "Олексій Ткаченко",
+        "specialization": "Кардіолог",
+        "workingHours": {
+          "mondayToFriday": "10:00-18:00",
+          "saturday": "11:00-14:00",
+          "sunday": "Вихідний"
+        }
+      },
+      {
+        "id": "vet10",
+        "image": "/src/image/doctors/vet10.jpg",
+        "name": "Тетяна Гончарова",
+        "specialization": "Дерматолог",
+        "workingHours": {
+          "mondayToFriday": "08:00-16:30",
+          "saturday": "10:00-14:00",
           "sunday": "Вихідний"
         }
       }
@@ -46,6 +126,7 @@
     "medicalStaff": [
       {
         "id": "staff1",
+        "image":"/src/image/doctors/staff1.jpg",
         "name": "Олена Шевченко",
         "position": "Медсестра",
         "contact": {
@@ -60,6 +141,7 @@
       },
       {
         "id": "staff2",
+        "image":"/src/image/doctors/staff2.jpg",
         "name": "Вікторія Гончар",
         "position": "Асистент ветеринара",
         "contact": {
@@ -74,6 +156,7 @@
       },
       {
         "id": "staff3",
+        "image":"/src/image/doctors/staff3.jpg",
         "name": "Ірина Лисенко",
         "position": "Лаборант",
         "contact": {
