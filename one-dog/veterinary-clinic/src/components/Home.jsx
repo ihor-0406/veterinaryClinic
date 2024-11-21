@@ -10,10 +10,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth'; // Импорт функции
 import { auth } from '../config/firebaseConfig'; // Импорт конфигурации Firebase
 import './Home.css';
+import saveIMG from "../image/saveBlock.jpg"
 
 function Home() {
     const [users, setUsers] = useState([]);
     const navigate = useNavigate(); // Инициализация навигации
+    const [timeLeft, setTimeLeft] = useState("");
 
     // Масив із варіантами відгуків
     const reviewTexts = [
@@ -24,6 +26,55 @@ function Home() {
         "Рекомендую всім! Чудовий сервіс і приємний персонал.",
         "Мій собака завжди щасливий після візиту сюди. Дякую за вашу роботу!"
     ];
+    // Функция для обновления таймера
+  const updateTimer = () => {
+    const targetDate = new Date("2024-12-31T23:59:59");
+    const now = new Date();
+    const difference = targetDate - now;
+
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / 1000 / 60) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+
+    setTimeLeft(
+      difference > 0
+        ?` ${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`
+        : "Акция завершена!"
+    );
+  };
+  
+  useEffect(() => {
+    const createSnowflake = () => {
+      const snowflake = document.createElement("div");
+      snowflake.classList.add("snowflake");
+  
+      // Случайное положение и стили снежинки
+      snowflake.style.left = `${Math.random() * 100}%`; // Случайное положение по ширине контейнера
+      snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // 2-5 секунд
+      snowflake.style.opacity = `${Math.random() * 0.5 + 0.5}`; // Прозрачность от 0.5 до 1
+      snowflake.style.fontSize = `${Math.random() * 20 + 20}px`; // Размер 20-40px
+  
+      // Находим контейнер для снежинок
+      const container = document.querySelector(".show-container");
+      if (container) {
+        container.appendChild(snowflake);
+        console.log("Снежинка добавлена:", snowflake); // Проверка
+      } else {
+        console.error("Контейнер .show-container не найден");
+      }
+  
+      setTimeout(() => {
+        snowflake.remove();
+      }, 5000); // Удаляем снежинку через 5 секунд
+    };
+  
+    // Запуск интервала для создания снежинок
+    const interval = setInterval(createSnowflake, 200);
+  
+    return () => clearInterval(interval); // Очистка интервала при размонтировании
+  }, []);
 
     // Функція для вибору випадкового відгуку
     const getRandomReview = () => {
@@ -100,7 +151,27 @@ function Home() {
                     </div>
                 </div>
             </div>
-
+            {/*  */}
+            <div className="grooming-promotion">
+      <div className="promotion-content">
+        <div className="textSection">
+          <h1>Груминг для вашей собаки</h1>
+          <p className='px-3'>
+            Успейте записаться на профессиональный груминг до конца года и
+            получите скидку 20%!
+          </p>
+          <div className="timer">{timeLeft}</div>
+        </div>
+        <div className="show-container">
+          <img className='grooming-img'
+            src={saveIMG}
+            alt="Груминг"
+            width={'350px'}
+            height={'450px'}
+          />
+        </div>
+      </div>
+    </div>
             {/* Блок із відгуками */}
             <div className="reviews-section mt-5">
                 <Swiper

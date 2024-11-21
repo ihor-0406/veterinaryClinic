@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
@@ -12,14 +12,90 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 import vets from "../data/vets.json";
-import sevicesVet from '../pages/servicesVet'
+import { FaStethoscope, FaVial, FaSyringe, FaUserMd, FaTooth } from "react-icons/fa"; // Импорт иконок
 
-
-
-
+const servicesList = [
+  {
+    id: 1,
+    title: "Загальний огляд",
+    description: "Консультація ветеринара та діагностика загального стану.",
+    icon: <FaStethoscope />,
+    fullList: [
+      "Огляд тварини",
+      "Консультація з лікування",
+      "Призначення додаткових обстежень"
+    ]
+  },
+  {
+    id: 2,
+    title: "Діагностика",
+    description: "УЗД, аналізи крові, сечі, калу, рентгенографія.",
+    icon: <FaVial />,
+    fullList: [
+      "Ультразвукове дослідження (УЗД)",
+      "Загальний аналіз крові",
+      "Біохімічний аналіз крові",
+      "Рентгенологічне дослідження"
+    ]
+  },
+  {
+    id: 3,
+    title: "Вакцинація",
+    description: "Проведення первинної та повторної вакцинації.",
+    icon: <FaSyringe />,
+    fullList: [
+      "Вакцинація проти сказу",
+      "Вакцинація проти інфекційних хвороб",
+      "Складання індивідуального графіка вакцинації"
+    ]
+  },
+  {
+    id: 4,
+    title: "Хірургія",
+    description: "Планові та екстрені операції.",
+    icon: <FaUserMd />,
+    fullList: [
+      "Стерилізація та кастрація",
+      "Лікування травм",
+      "Видалення новоутворень"
+    ]
+  },
+  {
+    id: 5,
+    title: "Стоматологія",
+    description: "Чистка зубів, видалення зубного каменю, лікування.",
+    icon: <FaTooth />,
+    fullList: [
+      "Чистка зубів від зубного каменю",
+      "Лікування карієсу",
+      "Видалення хворих зубів"
+    ]
+  },
+  {
+    id: 6,
+    title: "Терапевтичні послуги",
+    description: "Лікування внутрішніх органів та систем.",
+    icon: <FaStethoscope />,
+    fullList: [
+      "Лікування захворювань шлунково-кишкового тракту",
+      "Терапія захворювань дихальної системи",
+      "Контроль та лікування хронічних захворювань"
+    ]
+  }
+];
+const priceList = [
+  { service: "Загальний огляд", description: "Огляд та консультація ветеринара", price: "500 грн" },
+  { service: "Діагностика", description: "УЗД, аналізи крові, рентгенографія", price: "700 грн" },
+  { service: "Вакцинація", description: "Вакцинація проти інфекційних хвороб", price: "300 грн" },
+  { service: "Хірургія", description: "Планові та екстрені операції", price: "від 2000 грн" },
+  { service: "Стоматологія", description: "Чистка зубів та видалення каменю", price: "800 грн" },
+  { service: "Терапевтичні послуги", description: "Лікування внутрішніх органів", price: "від 1000 грн" },
+];
 
 const Veterinary = () => {
   const navigate = useNavigate();
+  const [expandedCard, setExpandedCard] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     document.title = 'Ветеринарія';
@@ -34,6 +110,14 @@ const Veterinary = () => {
       }
     });
   };
+
+  const handleCardClick = (id) => {
+    setExpandedCard((prev) => (prev === id ? null : id)); // Открытие/закрытие карточки
+  };
+  const toggleTable = () => {
+    setIsVisible(!isVisible);
+  };
+
   const galleryImages = [
     { id: 1, src: "/src/image/center1.jpg", alt:'Огляд собаки лікарям ' },
     { id: 2, src: "/src/image/center2.jpg", alt:'Кабінет для огляду тварин' }, 
@@ -41,6 +125,7 @@ const Veterinary = () => {
     { id: 4, src: "/src/image/center4.webp", alt: 'Приймальне відділення' },
     { id: 5, src: "/src/image/center5.jpg", alt:  'Приймальне відділення'}
   ];
+  
 
   return (
     <section className="container">
@@ -122,86 +207,71 @@ const Veterinary = () => {
         </div>
       </div>
       </div>
-      <div>
       <div className="pricing-container py-5">
       <h1 className="pricing-header text-center mb-4">Ціни на ветеринарні послуги</h1>
-      <p className="pricing-subheader text-center">
-        Наші послуги розділені на три пакети, щоб задовольнити різні потреби: від базового догляду до комплексного лікування. Ми гарантуємо високий рівень обслуговування та турботу про вашого улюбленця.
-      </p>
-
-      <div className="pricing-row row">
-        {/* Basic Plan */}
-        <div className="pricing-column col-md-4">
-          <div className="pricing-card pricing-basic">
-            <div className="pricing-card-header">
-              <h3 className="pricing-card-title">Базовий</h3>
-            </div>
-            <div className="pricing-card-body">
-              <h2 className="pricing-card-price">
-                300 грн<small className="pricing-card-period">/огляд</small>
-              </h2>
-              <ul className="pricing-card-features">
-                <li>Первинний огляд</li>
-                <li>Вакцинація (без вартості вакцини)</li>
-                <li>Обробка від паразитів</li>
-              </ul>
-              <p className="pricing-card-description">
-                Для тих, хто хоче провести профілактичний огляд або базові процедури. Ідеально підходить для регулярного догляду.
-              </p>
-              <button className="pricing-card-button" onClick={() => (window.location.href = "tel:+380501234567")}>Замовити</button>
-            </div>
-          </div>
-        </div>
-
-        {/* Standard Plan */}
-        <div className="pricing-column col-md-4">
-          <div className="pricing-card pricing-standard">
-            <div className="pricing-card-header">
-              <h3 className="pricing-card-title">Стандартний</h3>
-            </div>
-            <div className="pricing-card-body">
-              <h2 className="pricing-card-price">
-                600 грн<small className="pricing-card-period">/сеанс</small>
-              </h2>
-              <ul className="pricing-card-features">
-                <li>Повний огляд</li>
-                <li>Аналіз крові</li>
-                <li>УЗД внутрішніх органів</li>
-                <li>План лікування</li>
-              </ul>
-              <p className="pricing-card-description">
-                Оптимальний вибір для собак, які потребують діагностики та складання плану лікування. Забезпечує комплексний підхід.
-              </p>
-              <button className="pricing-card-button pricing-card-highlight" onClick={() => (window.location.href = "tel:+380501234567")}>
-                Замовити
-              </button>
+     
+      <div >
+      <div>
+      <div className="row g-4">
+        {servicesList.map((service) => (
+          <div
+            key={service.id}
+            className={`col-12 col-md-6 col-lg-4`}
+            onClick={() => handleCardClick(service.id)}
+          >
+            <div className={`card h-100 ${expandedCard === service.id ? "border-success shadow" : ""}`}>
+              <div className="card-body text-center">
+                <div className="mb-3">
+                  <i className={`${service.icon} text-success`} style={{ fontSize: "2.5rem" }}></i>
+                </div>
+                <h5 className="card-title text-dark">{service.title}</h5>
+                <p className="card-text text-muted">{service.description}</p>
+                {expandedCard === service.id && (
+                  <ul className="list-unstyled mt-3">
+                    {service.fullList.map((item, index) => (
+                      <li key={index} className="text-muted">
+                        - {item}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
           </div>
+        ))}
+      </div>
+      </div>
+      <div>
+      <div className="text-center mb-4">
+        <button
+          className={`btn ${isVisible ? "btn-danger" : "btn-primary"} btn-lg mt-5 `}
+          onClick={toggleTable}
+        >
+          {isVisible ? "Сховати Ціни" : "Показати Ціни"}
+        </button>
+      </div>
+      {isVisible && (
+        <div className="table-responsive">
+          <table className="table table-bordered table-hover text-center align-middle">
+            <thead className="table-success">
+              <tr>
+                <th scope="col">Послуга</th>
+                <th scope="col">Опис</th>
+                <th scope="col">Ціна</th>
+              </tr>
+            </thead>
+            <tbody>
+              {priceList.map((item, index) => (
+                <tr key={index}>
+                  <td className="fw-bold">{item.service}</td>
+                  <td>{item.description}</td>
+                  <td className="text-success fw-bold">{item.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-
-        {/* Premium Plan */}
-        <div className="pricing-column col-md-4">
-          <div className="pricing-card pricing-premium">
-            <div className="pricing-card-header">
-              <h3 className="pricing-card-title">Преміум</h3>
-            </div>
-            <div className="pricing-card-body">
-              <h2 className="pricing-card-price">
-                1200 грн<small className="pricing-card-period">/сеанс</small>
-              </h2>
-              <ul className="pricing-card-features">
-                <li>Індивідуальний супровід</li>
-                <li>Хірургічні процедури</li>
-                <li>Рентген-діагностика</li>
-                <li>Післяопераційна реабілітація</li>
-              </ul>
-              <p className="pricing-card-description">
-                Для складних випадків, що вимагають хірургічного втручання, рентгену та реабілітації. Максимальний рівень турботи.
-              </p>
-              <button className="pricing-card-button" onClick={() => (window.location.href = "tel:+380501234567")}>Замовити</button>
-            </div>
-          </div>
-        </div>
+      )}
       </div>
 
       {/* Блок с дополнительным пояснением */}
@@ -269,10 +339,6 @@ const Veterinary = () => {
         ))}
       </Swiper>
       </div>
-      <div>
-        <sevicesVet></sevicesVet>
-      </div>
-     
     </section>
   );
 };

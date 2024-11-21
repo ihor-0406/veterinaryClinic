@@ -147,3 +147,82 @@
     background-position: center;
 
 }
+  .grooming-promotion {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;  
+}
+  
+.promotion-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(93, 181, 87);
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    border: 5px solid rgb(198, 154, 44);
+
+}
+  
+.textSection {
+    flex: 1;
+    padding: 20px;
+    margin: 20px;
+}
+  
+.textSection h1 {
+    color: #074985; /* Темно-зеленый */
+    margin-bottom: 15px;
+}
+  
+.textSection p {
+    color: #555;
+    margin-bottom: 20px;
+}
+  
+.timer {
+    font-size: 18px;
+    font-weight: bold;
+    color: #d80000;
+}
+  
+.show-container {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+  
+.grooming-img{
+    width: 100%;
+    height: auto;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+  /* Анимация снежинок */
+  .snowflake {
+    position: absolute;
+    top: 0;
+    opacity: 0.8; /* Полупрозрачность */
+    pointer-events: none; /* Чтобы снежинки не мешали кликам */
+    animation: fall 5s linear infinite;
+    z-index: 1000;
+    background: rgb(249, 248, 248);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+  }
+  
+  @keyframes fall {
+    0% {
+      transform: translateY(-100px); /* Начало выше контейнера */
+    }
+    100% {
+      transform: translateY(450px); /* Падает ниже изображения */
+    }
+  }
