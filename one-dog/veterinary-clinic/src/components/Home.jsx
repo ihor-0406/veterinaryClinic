@@ -27,23 +27,33 @@ function Home() {
         "Мій собака завжди щасливий після візиту сюди. Дякую за вашу роботу!"
     ];
     // Функция для обновления таймера
+  // Функция для обновления таймера
   const updateTimer = () => {
-    const targetDate = new Date("2024-12-31T23:59:59");
+    const targetDate = new Date(new Date().getFullYear(), 11, 23, 0, 0, 0); // 23 грудня поточного року (місяці починаються з 0)
     const now = new Date();
     const difference = targetDate - now;
 
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((difference / 1000 / 60) % 60);
-    const seconds = Math.floor((difference / 1000) % 60);
-
-
-    setTimeLeft(
-      difference > 0
-        ?` ${days} дней ${hours} часов ${minutes} минут ${seconds} секунд`
-        : "Акция завершена!"
-    );
+    if (difference > 0) {
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((difference / (1000 * 60)) % 60);
+      const seconds = Math.floor((difference / 1000) % 60);
+      setTimeLeft(
+       ` ${days} днів ${hours} годин ${minutes} хвилин ${seconds} секунд`
+      );
+    } else {
+      setTimeLeft("Акція завершена!");
+    }
   };
+
+  // useEffect для запуску таймера
+  useEffect(() => {
+    const interval = setInterval(() => {
+      updateTimer();
+    }, 1000); // Оновлення щосекунди
+
+    return () => clearInterval(interval); // Очищення інтервалу під час демонтажу
+  }, []);
   
   useEffect(() => {
     const createSnowflake = () => {
@@ -51,10 +61,10 @@ function Home() {
       snowflake.classList.add("snowflake");
   
       // Случайное положение и стили снежинки
-      snowflake.style.left = `${Math.random() * 100}%`; // Случайное положение по ширине контейнера
-      snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; // 2-5 секунд
-      snowflake.style.opacity = `${Math.random() * 0.5 + 0.5}`; // Прозрачность от 0.5 до 1
-      snowflake.style.fontSize = `${Math.random() * 20 + 20}px`; // Размер 20-40px
+      snowflake.style.left = `${Math.random() * 100}%`; 
+      snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; 
+      snowflake.style.opacity = `${Math.random() * 0.5 + 0.5}`; 
+      snowflake.style.fontSize = `${Math.random() * 20 + 20}px`; 
   
       // Находим контейнер для снежинок
       const container = document.querySelector(".show-container");
@@ -118,7 +128,7 @@ function Home() {
                             One<span className="fw-bolder">D<FontAwesomeIcon icon={faPaw} style={{ color: "#078550" }} />g</span> Center
                         </h2>
                     </div>
-                    <div className="col-6">
+                    <div className="col-12">
                         <p>
                             <FontAwesomeIcon icon={faPaw} style={{ color: "#000000" }} /> Повний спектр послуг для домашніх улюбленців. <br />
                             <FontAwesomeIcon icon={faPaw} style={{ color: "#000000" }} /> Висококваліфіковані ветеринари та кінологи. <br />
@@ -151,17 +161,16 @@ function Home() {
                     </div>
                 </div>
             </div>
-            {/*  */}
             <div className="grooming-promotion">
       <div className="promotion-content">
         <div className="textSection">
-          <h1>Груминг для вашей собаки</h1>
-          <p className='px-3'>
-            Успейте записаться на профессиональный груминг до конца года и
-            получите скидку 20%!
-          </p>
-          <div className="timer">{timeLeft}</div>
-        </div>
+        <h1 className='title'>Грумінг для вашої собаки</h1>
+            <p className="px-3 subtitle">
+              Встигніть записатися на професійний грумінг до <span className='highlight'>23 грудня</span> та
+              отримайте знижку <span className='highlight'>20%!</span>
+            </p>
+            <div className="timer"><span className='time-text'>{timeLeft}</span></div>
+          </div>
         <div className="show-container">
           <img className='grooming-img'
             src={saveIMG}

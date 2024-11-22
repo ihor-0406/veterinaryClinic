@@ -17,20 +17,21 @@ import Album from './pages/Album';
 import Veterinary from './pages/veterinary';
 import "swiper/css";
 import "swiper/css/pagination";
+import Cynology from './pages/cynology'; // Змінено ім'я на заглавну букву
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Главная страница с Header */}
+        {/* Головна сторінка з Header */}
         <Route path="/" element={<LayoutWithHeader />}>
-          <Route index element={<Home />} /> 
-          <Route  path='services' element={<Services />} />
-          <Route  path='veterinary' element={<Veterinary />}></Route>
-          <Route  path='contacts' element={<Contacts />} /> 
+          <Route index element={<Home />} />
+          <Route path="services" element={<Services />} />
+          <Route path="veterinary" element={<Veterinary />} />
+          <Route path="cynology" element={<Cynology />} />
+          <Route path="contacts" element={<Contacts />} />
 
-
-          {/* Путь к профилю и его вкладкам */}
+          {/* Шлях до профілю та його вкладок */}
           <Route path="profile" element={<Profile />}>
             <Route path="pet" element={<Pet />} />
             <Route path="history" element={<History />} />
@@ -38,8 +39,8 @@ function App() {
             <Route path="album" element={<Album />} />
           </Route>
         </Route>
-        
-        {/* Страницы входа и регистрации */}
+
+        {/* Сторінки входу та реєстрації */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
@@ -54,7 +55,7 @@ function LayoutWithHeader() {
       <main>
         <Outlet />
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 }

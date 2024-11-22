@@ -17,7 +17,7 @@
 
 .center-info {
     background-image: url(../image/homeImg.jpg);
-    background-position: center right;
+    background-position: center ;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -147,47 +147,61 @@
     background-position: center;
 
 }
-  .grooming-promotion {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;  
+.grooming-promotion {
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(135deg, #ffd497, #fcb69f);
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
 }
   
 .promotion-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgb(93, 181, 87);
+    background-color: rgb(249, 249, 249);
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    border: 5px solid rgb(198, 154, 44);
+    border: 2px solid rgb(57, 141, 88);
 
+}  
+.title {
+    color: rgb(16, 126, 53);
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(21, 21, 21, 0.404);
 }
   
-.textSection {
-    flex: 1;
-    padding: 20px;
-    margin: 20px;
-}
-  
-.textSection h1 {
-    color: #074985; /* Темно-зеленый */
-    margin-bottom: 15px;
-}
-  
-.textSection p {
-    color: #555;
+.subtitle {
+    font-size: 1.2rem;
+    color: rgb(51, 51, 51);
     margin-bottom: 20px;
+}
+.highlight {
+    color: rgb(16, 126, 53);
+    font-weight: bold;
+    font-size: 1.3rem;
 }
   
 .timer {
-    font-size: 18px;
+    font-size: 1.5rem;
+    color: rgb(217, 32, 39);
     font-weight: bold;
-    color: #d80000;
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 4px 10px 14px rgba(245, 5, 5, 0.705);
 }
+.timer .time-text {
+    color: rgb(16, 126, 53);
+    font-size: 1.8rem;
+}
+  
   
 .show-container {
     flex: 1;
@@ -203,13 +217,11 @@
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-
-  /* Анимация снежинок */
-  .snowflake {
+.snowflake {
     position: absolute;
     top: 0;
-    opacity: 0.8; /* Полупрозрачность */
-    pointer-events: none; /* Чтобы снежинки не мешали кликам */
+    opacity: 0.8; 
+    pointer-events: none; 
     animation: fall 5s linear infinite;
     z-index: 1000;
     background: rgb(249, 248, 248);
@@ -220,9 +232,33 @@
   
   @keyframes fall {
     0% {
-      transform: translateY(-100px); /* Начало выше контейнера */
+      transform: translateY(-100px); 
     }
     100% {
-      transform: translateY(450px); /* Падает ниже изображения */
+      transform: translateY(450px); 
+    }
+  }
+  @media (max-width: 576px) {
+    .center-info {
+        background-image: url(../image/homeImg.jpg);
+        background-position:  40% 25%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .logoOnegog {
+      font-size: 2rem;
+    }
+  
+    .features-text {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  
+    .btn-primary {
+      font-size: 0.9rem;
+      padding: 8px 16px;
+    }
+    .promotion-content{
+        flex-direction: column;
     }
   }

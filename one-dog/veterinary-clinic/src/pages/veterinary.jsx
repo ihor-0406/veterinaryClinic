@@ -178,7 +178,7 @@ const Veterinary = () => {
       </div>
 
       {/* Второй блок: изображение слева, текст справа */}
-      <div className="veterinary-block reverse">
+      <div className="veterinary-block-reverse">
         <div className="veterinary-image">
         <img src={vet2} alt="veterinary Image" width={'100%'} height={'80%'} />
         </div>
