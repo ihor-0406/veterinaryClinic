@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import cyn1 from "../image/cynology1.jpg";
 import cyn2 from "../image/cynology2.jpeg";
 import cyn3 from "../image/cynology3.jpg";
-import "./cynology.css"
+import "./cynology.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation, Pagination } from "swiper/modules";
+import vets from "../data/vets.json";
 
 
 
@@ -15,12 +20,20 @@ const cynology=()=>{
         document.title = 'Кінологічний центр';
     }, []);
 
+    const galleryImages = [
+      { id: 1, src: "/src/image/kyno-dog1.jpg", alt:'Тренер тренерує пса' },
+      { id: 2, src: "/src/image/kyno-dog2.jpg", alt:'Три німецкі вівчарки' }, 
+      { id: 3, src: "/src/image/kyno-dog4.jpg", alt: 'Дівчина грає з псом' },
+      { id: 4, src: "/src/image/kyno-dog5.jpg", alt: 'Пес з людиною ' },
+      { id: 5, src: "/src/image/kyno-dog6.jpg", alt:  'Пес з людиною'}
+    ];
+
     const handleProfileRedirect = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate("/profile/history"); // Если пользователь авторизован
+        navigate("/profile/history"); 
       } else {
-        navigate("/login"); // Если пользователь не авторизован
+        navigate("/login"); 
       }
     });
   };
@@ -204,6 +217,75 @@ const cynology=()=>{
         </div>
       </div>
     </div>
+    <div className="mt-5 doctors-container">
+    <h1 className="pricing-header fw-bold text-center pt-5 mt-4">Наші Тренери</h1>
+<Swiper
+  modules={[Navigation]}
+  navigation
+  spaceBetween={20}
+  slidesPerView={3}
+  breakpoints={{
+    320: { slidesPerView: 1 },
+    768: { slidesPerView: 2 },
+    1024: { slidesPerView: 3 },
+  }}
+  className="doctors-slider"
+>
+  {vets.kynologists.map((kynologist) => (
+    <SwiperSlide key={kynologist.id} className="doctors-slide">
+      <div className="doctors-card text-center">
+        <img
+          src={kynologist.image}
+          className="doctors-card-img m-2 border border-success rounded-circle"
+          alt={kynologist.name}
+          width={'250px'}
+          height={'250px'}
+        />
+        <div className="doctors-card-body">
+          <h5 className="doctors-card-title">{kynologist.name}</h5>
+          <p className="doctors-card-text">{kynologist.specialization}</p>
+          <p className="doctors-card-text">
+            <strong>Графік роботи:</strong> <br />
+            {Object.entries(kynologist.workingHours).map(([day, hours]) => {
+              const dayNames = {
+                monday: 'Понеділок',
+                tuesday: 'Вівторок',
+                wednesday: 'Середа',
+                thursday: 'Четвер',
+                friday: 'П’ятниця',
+                saturday: 'Субота',
+                sunday: 'Неділя',
+              };
+              return (
+                <span key={day}>
+                  {dayNames[day]}: {hours || 'Вихідний'}
+                  <br />
+                </span>
+              );
+            })}
+          </p>
+        </div>
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
+      </div>
+      <div className="mt-5 ">
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        spaceBetween={1}
+        slidesPerView={1}
+        className="gallery-slider"
+      >
+        {galleryImages.map((image) => (
+          <SwiperSlide key={image.id}>
+            <img src={image.src} alt={`Slide ${image.id}`} className="gallery-image"  />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      </div>
         </section>
     );
 };

@@ -178,7 +178,7 @@ const Veterinary = () => {
       </div>
 
       {/* Второй блок: изображение слева, текст справа */}
-      <div className="veterinary-block-reverse">
+      <div className="veterinary-block reverse">
         <div className="veterinary-image">
         <img src={vet2} alt="veterinary Image" width={'100%'} height={'80%'} />
         </div>
@@ -285,43 +285,57 @@ const Veterinary = () => {
     </div>
       </div>
       <div className="mt-5 doctors-container">
-      <h1 className="pricing-header  fw-bold text-center pt-5 mt-4">Наші Лікарі</h1>
-      <Swiper 
-        modules={[Navigation]}
-        navigation
-        spaceBetween={20}
-        slidesPerView={3}
-        breakpoints={{
-          320: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        className="doctors-slider"
-      >
-        {vets.vets.map((vet) => (
-          <SwiperSlide key={vet.id} className="doctors-slide">
-            <div className="doctors-card text-center">
-              <img
-                src={vet.image}
-                className="doctors-card-img m-2 border border-success rounded-circle"
-                alt={vet.name}
-                width={'170px'}
-                height={'170px'}
-              />
-              <div className="doctors-card-body">
-                <h5 className="doctors-card-title">{vet.name}</h5>
-                <p className="doctors-card-text">{vet.specialization}</p>
-                <p className="doctors-card-text">
-                  <strong>Графік роботи:</strong> <br />
-                  Пн-Пт: {vet.workingHours.wednesdayToFriday}{vet.workingHours.mondayToFriday} <br />
-                  Сб: {vet.workingHours.saturday} <br />
-                  Нд: {vet.workingHours.sunday}
-                </p>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <h1 className="pricing-header fw-bold text-center pt-5 mt-4">Наші Лікарі</h1>
+<Swiper
+  modules={[Navigation]}
+  navigation
+  spaceBetween={20}
+  slidesPerView={3}
+  breakpoints={{
+    320: { slidesPerView: 1 },
+    768: { slidesPerView: 2 },
+    1024: { slidesPerView: 3 },
+  }}
+  className="doctors-slider"
+>
+  {vets.vets.map((vets) => (
+    <SwiperSlide key={vets.id} className="doctors-slide">
+      <div className="doctors-card text-center">
+        <img
+          src={vets.image}
+          className="doctors-card-img m-2 border border-success rounded-circle"
+          alt={vets.name}
+          width={'250px'}
+          height={'250px'}
+        />
+        <div className="doctors-card-body">
+          <h5 className="doctors-card-title">{vets.name}</h5>
+          <p className="doctors-card-text">{vets.specialization}</p>
+          <p className="doctors-card-text">
+            <strong>Графік роботи:</strong> <br />
+            {Object.entries(vets.workingHours).map(([day, hours]) => {
+              const dayNames = {
+                monday: 'Понеділок',
+                tuesday: 'Вівторок',
+                wednesday: 'Середа',
+                thursday: 'Четвер',
+                friday: 'П’ятниця',
+                saturday: 'Субота',
+                sunday: 'Неділя',
+              };
+              return (
+                <span key={day}>
+                  {dayNames[day]}: {hours || 'Вихідний'}
+                  <br />
+                </span>
+              );
+            })}
+          </p>
+        </div>
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
       </div>
       <div className="mt-5">
       <Swiper

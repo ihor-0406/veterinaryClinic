@@ -17,7 +17,8 @@ import Album from './pages/Album';
 import Veterinary from './pages/veterinary';
 import "swiper/css";
 import "swiper/css/pagination";
-import Cynology from './pages/cynology'; // Змінено ім'я на заглавну букву
+import Cynology from './pages/cynology'; 
+import Grooming from './pages/Grooming'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="services" element={<Services />} />
           <Route path="veterinary" element={<Veterinary />} />
           <Route path="cynology" element={<Cynology />} />
+          <Route path="grooming" element={<Grooming />} />
           <Route path="contacts" element={<Contacts />} />
 
           {/* Шлях до профілю та його вкладок */}

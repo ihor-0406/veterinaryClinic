@@ -7,29 +7,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth'; // Импорт функции
-import { auth } from '../config/firebaseConfig'; // Импорт конфигурации Firebase
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../config/firebaseConfig';
 import './Home.css';
-import saveIMG from "../image/saveBlock.jpg"
+import saveIMG from "../image/saveBlock.jpg";
 
 function Home() {
-    const [users, setUsers] = useState([]);
-    const navigate = useNavigate(); // Инициализация навигации
-    const [timeLeft, setTimeLeft] = useState("");
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+  const [timeLeft, setTimeLeft] = useState("");
+  const [randomReview, setRandomReview] = useState("");
 
-    // Масив із варіантами відгуків
-    const reviewTexts = [
-        "Прекрасне обслуговування та турбота про мого улюбленця. Всім рекомендую!",
-        "Дуже задоволений якістю послуг та увагою до мого улюбленця!",
-        "Найкращий ветеринарний центр! Завжди впевнений у професіоналізмі команди.",
-        "Дякую за доброту та турботу про нашого улюбленця.",
-        "Рекомендую всім! Чудовий сервіс і приємний персонал.",
-        "Мій собака завжди щасливий після візиту сюди. Дякую за вашу роботу!"
-    ];
-    // Функция для обновления таймера
+  // Масив із варіантами відгуків
+  const reviewTexts = [
+    "Прекрасне обслуговування та турбота про мого улюбленця. Всім рекомендую!",
+    "Дуже задоволений якістю послуг та увагою до мого улюбленця!",
+    "Найкращий ветеринарний центр! Завжди впевнений у професіоналізмі команди.",
+    "Дякую за доброту та турботу про нашого улюбленця.",
+    "Рекомендую всім! Чудовий сервіс і приємний персонал.",
+    "Мій собака завжди щасливий після візиту сюди. Дякую за вашу роботу!"
+  ];
+
   // Функция для обновления таймера
   const updateTimer = () => {
-    const targetDate = new Date(new Date().getFullYear(), 11, 23, 0, 0, 0); // 23 грудня поточного року (місяці починаються з 0)
+    const targetDate = new Date(new Date().getFullYear(), 11, 23, 0, 0, 0); // 23 декабря текущего года
     const now = new Date();
     const difference = targetDate - now;
 
@@ -39,85 +40,80 @@ function Home() {
       const minutes = Math.floor((difference / (1000 * 60)) % 60);
       const seconds = Math.floor((difference / 1000) % 60);
       setTimeLeft(
-       ` ${days} днів ${hours} годин ${minutes} хвилин ${seconds} секунд`
+        `${days} днів ${hours} годин ${minutes} хвилин ${seconds} секунд`
       );
     } else {
       setTimeLeft("Акція завершена!");
     }
   };
 
-  // useEffect для запуску таймера
+  // useEffect для запуска таймера
   useEffect(() => {
     const interval = setInterval(() => {
       updateTimer();
-    }, 1000); // Оновлення щосекунди
+    }, 1000);
 
-    return () => clearInterval(interval); // Очищення інтервалу під час демонтажу
+    return () => clearInterval(interval);
   }, []);
-  
+
+  // useEffect для случайного отзыва (генерация один раз при загрузке)
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * reviewTexts.length);
+    setRandomReview(reviewTexts[randomIndex]);
+  }, []); // Генерируем отзыв только один раз
+
   useEffect(() => {
     const createSnowflake = () => {
       const snowflake = document.createElement("div");
       snowflake.classList.add("snowflake");
-  
+
       // Случайное положение и стили снежинки
-      snowflake.style.left = `${Math.random() * 100}%`; 
-      snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`; 
-      snowflake.style.opacity = `${Math.random() * 0.5 + 0.5}`; 
-      snowflake.style.fontSize = `${Math.random() * 20 + 20}px`; 
-  
+      snowflake.style.left = `${Math.random() * 100}%`;
+      snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+      snowflake.style.opacity = `${Math.random() * 0.5 + 0.5}`;
+      snowflake.style.fontSize = `${Math.random() * 20 + 20}px`;
+
       // Находим контейнер для снежинок
       const container = document.querySelector(".show-container");
       if (container) {
         container.appendChild(snowflake);
-        console.log("Снежинка добавлена:", snowflake); // Проверка
-      } else {
-        console.error("Контейнер .show-container не найден");
       }
-  
+
       setTimeout(() => {
         snowflake.remove();
-      }, 5000); // Удаляем снежинку через 5 секунд
+      }, 5000);
     };
-  
+
     // Запуск интервала для создания снежинок
     const interval = setInterval(createSnowflake, 200);
-  
-    return () => clearInterval(interval); // Очистка интервала при размонтировании
+
+    return () => clearInterval(interval);
   }, []);
 
-    // Функція для вибору випадкового відгуку
-    const getRandomReview = () => {
-        const randomIndex = Math.floor(Math.random() * reviewTexts.length);
-        return reviewTexts[randomIndex];
-    };
+  // Завантаження даних користувачів із API
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const response = await fetch('https://randomuser.me/api/?results=10');
+        const data = await response.json();
+        setUsers(data.results);
+      } catch (error) {
+        console.error('Помилка завантаження даних:', error);
+      }
+    }
+    fetchUsers();
+  }, []);
 
-    // Завантаження даних користувачів із API
-    useEffect(() => {
-        async function fetchUsers() {
-            try {
-                const response = await fetch('https://randomuser.me/api/?results=10');
-                const data = await response.json();
-                setUsers(data.results);
-            } catch (error) {
-                console.error('Помилка завантаження даних:', error);
-            }
-        }
-
-        fetchUsers();
-    }, []);
-
-    // Функція для перенаправлення користувача
-    const handleProfileRedirect = () => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                navigate('/Profile/History');
-            } else {
-                navigate('/login');
-            }
-        });
-    };
-
+  // Функція для перенаправлення користувача
+  const handleProfileRedirect = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigate('/Profile/History');
+      } else {
+        navigate('/login');
+      }
+    });
+  };
     return (
         <section className="container">
             {/* Блок із загальною інформацією про центр */}
@@ -206,7 +202,7 @@ function Home() {
                                 />
                                 <div className="card-body text-center">
                                     {/* Відгук */}
-                                    <p className="card-text text-muted mb-3">"{getRandomReview()}"</p>
+                                    <p className="card-text text-muted mb-3">"{randomReview}"</p>
                                     {/* Нік */}
                                     <h5 className="card-title">{user.name.first} {user.name.last}</h5>
                                 </div>
