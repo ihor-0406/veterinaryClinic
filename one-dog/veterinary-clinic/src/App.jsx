@@ -18,7 +18,8 @@ import Veterinary from './pages/veterinary';
 import "swiper/css";
 import "swiper/css/pagination";
 import Cynology from './pages/cynology'; 
-import Grooming from './pages/Grooming'
+import Grooming from './pages/Grooming';
+import About from "./components/About";
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
           <Route path="cynology" element={<Cynology />} />
           <Route path="grooming" element={<Grooming />} />
           <Route path="contacts" element={<Contacts />} />
+          <Route path="about" element={<About />} />
+
 
           {/* Шлях до профілю та його вкладок */}
           <Route path="profile" element={<Profile />}>
