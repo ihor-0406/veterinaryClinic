@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../config/firebaseConfig';
 import { collection, addDoc, deleteDoc, doc, getDocs } from 'firebase/firestore';
+import "./Pet.css"
 
 const Pet = () => {
   const [breeds, setBreeds] = useState([]);
@@ -107,17 +108,17 @@ const Pet = () => {
   };
 
   return (
-    <div>
+    <div className='bgPet'>
       <h2>Питомці</h2> {/* Карточки с информацией о питомцах */}
-      <div className="d-flex flex-wrap">
+      <div className="d-flex flex-wrap ms-3">
         {pets.map((pet) => (
           <div key={pet.id} className="card mb-3 me-3" style={{ width: '18rem' }}>
-            <div className='d-flex justify-content-end'>
-              <button onClick={() => handleDeletePet(pet.id)} className="btn btn-danger rounded-circle">
+            <div className='d-flex justify-content-end me-2 my-2'>
+              <button onClick={() => handleDeletePet(pet.id)} className="btn btn-outline-danger rounded-circle">
                 &#10005;
               </button>
             </div>
-            {pet.image && <img src={pet.image} alt="Pet" className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover' }} />}
+            {pet.image && <img src={pet.image} alt="Pet" className="card-img-top" style={{ width: '100%',  height: '80%', objectFit: 'cover' }} />}
             <div className="card-body">
               <h5 className="card-title">{pet.name}</h5>
               <p><strong>Рік народження:</strong> {pet.birthYear}</p>
@@ -135,7 +136,7 @@ const Pet = () => {
         ))}
       </div>
 
-      <button className="btn btn-primary" onClick={() => setFormVisible(!formVisible)}>
+      <button className="btn btn-primary m-3" onClick={() => setFormVisible(!formVisible)}>
         Створити нового питомця
       </button>
 
@@ -262,7 +263,7 @@ const Pet = () => {
               className="form-control"
             />
           </div>
-          <button type="submit" className="btn btn-success">
+          <button type="submit" className="btn btn-success ">
             Зберегти питомця
           </button>
         </form>

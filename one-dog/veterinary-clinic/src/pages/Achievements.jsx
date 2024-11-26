@@ -81,7 +81,7 @@ const Achievements = () => {
   const todayDate = new Date().toISOString().split('T')[0]; // Поточна дата у форматі YYYY-MM-DD
 
   return (
-    <div>
+    <div className='bgPet'>
       <h2 className="text-center mt-3">Досягнення</h2>
 
       {/* Список досягнень */}

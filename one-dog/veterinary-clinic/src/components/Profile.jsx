@@ -152,7 +152,7 @@ const Profile = () => {
   return (
     <div className="container my-5">
       <div className="d-flex justify-content-end text-center me-4">
-          <button onClick={openDeleteModal} className="btn border border-black border border-bottom-0 bg-danger-subtle rounded-3 rounded-bottom-0">
+          <button onClick={openDeleteModal} className="btn border border-black border border-bottom-0 btn-outline-danger rounded-3 rounded-bottom-0">
             &#10005;
           </button>
         </div>
@@ -204,11 +204,11 @@ const Profile = () => {
         </div>
 
         <div className="text-end mt-4">
-          <button onClick={handleEditToggle} className="btn btn-outline-primary me-2">
+          <button onClick={handleEditToggle} className="btn btn-outline-success me-2">
             {isEditing ? 'Скасувати' : 'Редагувати'}
           </button>
           {isEditing && (
-            <button onClick={handleSave} className="btn btn-primary">
+            <button onClick={handleSave} className="btn btn-success">
               Зберегти
             </button>
           )}
@@ -216,17 +216,17 @@ const Profile = () => {
         <hr />
 
         <ul className="nav nav-tabs">
-          <li className="nav-item">
-            <Link className="nav-link" to="pet">Питомец</Link>
+          <li className="nav-item ">
+            <Link className="nav-link text-success" to="pet">Питомец</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="history">Історія лікування</Link>
+            <Link className="nav-link text-success" to="history">Історія лікування</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="achievements">Досягнення</Link>
+            <Link className="nav-link text-success" to="achievements">Досягнення</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="album">Фотоальбом</Link>
+            <Link className="nav-link text-success" to="album">Фотоальбом</Link>
           </li>
         </ul>
 

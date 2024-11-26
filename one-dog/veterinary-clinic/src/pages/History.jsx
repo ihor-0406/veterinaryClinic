@@ -128,7 +128,7 @@ const History = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!selectedSpecialist,  !selectedPet , !appointmentDate) {
+    if (!selectedSpecialist , !selectedPet , !appointmentDate) {
       alert('Оберіть спеціаліста, улюбленця та дату.');
       return;
     }
@@ -141,8 +141,18 @@ const History = () => {
     };
 
     try {
+      // Добавляем запись о приёме
       const docRef = await addDoc(collection(db, 'appointments'), newAppointment);
       setAppointments([...appointments, { id: docRef.id, ...newAppointment }]);
+
+      // Добавляем уведомление в коллекцию "notifications"
+      await addDoc(collection(db, 'notifications'), {
+        message: `Запис успішно створено для улюбленця ${selectedPet}`,
+        isRead: false,
+        timestamp: new Date(),
+      });
+
+      // Сбрасываем значения
       setAppointmentDate(null);
       setSelectedSpecialist('');
       setSelectedPet('');
@@ -181,7 +191,7 @@ const History = () => {
   };
 
   return (
-    <div className="container history-container">
+    <div className="container history-container bgPet">
       <h2>Запис до спеціаліста</h2>
       <form onSubmit={handleSubmit} className="mt-4">
         <div className="mb-3">

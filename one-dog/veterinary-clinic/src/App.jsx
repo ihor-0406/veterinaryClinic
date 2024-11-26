@@ -20,6 +20,7 @@ import "swiper/css/pagination";
 import Cynology from './pages/cynology'; 
 import Grooming from './pages/Grooming';
 import About from "./components/About";
+import FindMatch from './pages/FindMatch';
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
           <Route path="grooming" element={<Grooming />} />
           <Route path="contacts" element={<Contacts />} />
           <Route path="about" element={<About />} />
+          <Route path="find-match" element={<FindMatch />} />
+
 
 
           {/* Шлях до профілю та його вкладок */}

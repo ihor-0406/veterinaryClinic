@@ -29,10 +29,6 @@
     width: 40px;
     height: 40px;
   }
-  /* .menuBox a:hover{
-    background-color: blue;
-  
-  } */
 .iconAvatar:hover{
   width: 2rem;
   height: 2rem;
@@ -44,15 +40,15 @@
 }
 /* Загальний стиль для меню */
 .offcanvas.menuBox {
-  background-color: rgb(242, 239, 239); /* Світлий фон */
-  color: rgb(13, 13, 13); /* Темний текст */
+  background-color: rgb(242, 239, 239); 
+  color: rgb(13, 13, 13); 
 }
 
 /* Стиль заголовка меню */
 .offcanvas-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: rgb(7, 133, 80); /* Зелений відтінок для заголовка */
+  color: rgb(7, 133, 80); 
 }
 
 /* Стиль лінків меню */
@@ -62,8 +58,8 @@
   font-size: 1.2rem;
   font-weight: 500;
   color: rgb(51, 51, 51);
-  text-decoration: none; /* Без підкреслення */
-  border-top: 1px solid #ccc; /* Лінія зверху */
+  text-decoration: none; 
+  border-top: 1px solid #ccc; 
   transition: all 0.3s ease-in-out;
 }
 
@@ -97,15 +93,14 @@
 
 .search-input:focus {
   border-color: rgb(4, 84, 60); 
-  box-shadow: 0px 0px 8px rgba(7, 133, 80, 0.5); /* Тень при фокусе */
+  box-shadow: 0px 0px 8px rgba(7, 133, 80, 0.5); 
 }
 .notifications-dropdown {
-  top: 40px; /* Расстояние от иконки уведомлений */
+  top: 40px; 
   right: 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 300px;
   padding: 10px;
   list-style: none;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -123,14 +118,14 @@
 @media (max-width: 576px) {
   .navbar-brand h2 {
     margin-top: 1rem;
-      font-size: 1.5rem; /* Уменьшаем логотип */
+      font-size: 1.2rem; 
   }
 
   .btn {
-      padding: 0.5rem; /* Уменьшаем размер кнопок */
+      padding: 0.5rem; 
   }
 
   .row.align-items-center {
-      gap: 5px; /* Уменьшаем расстояние между элементами */
+      gap: 5px; 
   }
 }

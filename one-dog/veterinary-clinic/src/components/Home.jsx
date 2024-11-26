@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import {Navigation, Pagination } from 'swiper/modules';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,9 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig';
 import './Home.css';
 import saveIMG from "../image/saveBlock.jpg";
+import post1 from "../image/post1.jpg";
+import post2 from "../image/post2.jpg";
+
 
 function Home() {
   const [users, setUsers] = useState([]);
@@ -177,10 +180,76 @@ function Home() {
         </div>
       </div>
     </div>
+    <div className="container mt-5">
+            <div className="post-section mt-5 position-relative">
+                <div className="lapki-container">
+                    {[...Array(10)].map((_, i) => (
+                        <div
+                            className="lapka"
+                            key={i}
+                            style={{
+                                left: `${Math.random() * 90}%`,
+                                top: `${Math.random() * 90}%`,
+                                animationDelay: `${Math.random() * 5}s`,
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faPaw} />
+                        </div>
+                    ))}
+                </div>
+                <div className="row align-items-center">
+                    <div className="col-lg-8 post-text">
+                        <h1>Місце, де народжується дружба</h1>
+                        <p>
+                            Наш центр — це місце, де починається справжня дружба. Ми піклуємось про кожну собаку, щоб вона відчувала себе потрібною та коханою. <FontAwesomeIcon icon="fa-solid fa-paw" style={{color: "#41b995",}} />
+                            <br />
+                            <br />
+                            Наша команда завжди поруч, щоб знайти для кожного улюбленця найкращу родину. Завітайте до нас та переконайтесь, що тут здійснюються мрії! <FontAwesomeIcon icon="fa-solid fa-heart" style={{color: "#bc1d01",}} />
+                        </p>
+                    </div>
+                    <div className="col-lg-4 post-image">
+                        <img src={post1} alt="Місце, де народжується дружба" className="img-fluid rounded" />
+                    </div>
+                </div>
+            </div>
+
+            <div className="post-section mb-5 position-relative">
+                <div className="lapki-container">
+                    {[...Array(10)].map((_, i) => (
+                        <div
+                            className="lapka"
+                            key={i}
+                            style={{
+                                left: `${Math.random() * 90}%`,
+                                top: `${Math.random() * 90}%`,
+                                animationDelay: `${Math.random() * 5}s`,
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faPaw} />
+                        </div>
+                    ))}
+                </div>
+                <div className="row align-items-center">
+                    <div className="col-lg-4 post-image">
+                        <img src={post2} alt="Ми піклуємось про кожного" className="img-fluid rounded" />
+                    </div>
+                    <div className="col-lg-8 post-text">
+                        <h1>Ми піклуємось про кожного</h1>
+                        <p>
+                            Ми у "OneDog" знаємо, наскільки важливою є турбота. Наша місія — допомогти кожній собаці знайти люблячу родину. <FontAwesomeIcon icon="fa-solid fa-sun" style={{color: "#FFD43B",}} />
+                            <br />
+                            <br />
+                            Цей чотирилапий друг вже готовий стати частиною вашого життя. Давайте разом подаруємо йому новий дім, де його любитимуть і піклуватимуться! <FontAwesomeIcon icon="fa-solid fa-house" style={{color: "#2a896c",}} />
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
             {/* Блок із відгуками */}
             <div className="reviews-section mt-5">
                 <Swiper
-                    modules={[Pagination]}
+                    modules={[Navigation, Pagination]}
+                    navigation
                     spaceBetween={20}
                     slidesPerView={3}
                     pagination={{ clickable: true }}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./About.css";
 import about1 from "../image/about1.jpg";
 import about2 from "../image/about2.jpg";
@@ -14,6 +14,47 @@ import { Navigation, Pagination } from "swiper/modules";
 
 
 const about =() =>{
+  const [hoveredSponsor, setHoveredSponsor] = useState(null);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  
+  const sponsors = [
+    {
+      id: 1,
+      name: 'PetFood Company',
+      description: 'Лідер у виробництві кормів для собак.',
+      logo: '/src/image/sponsors/dogCare.png',
+    },
+    {
+      id: 2,
+      name: 'DogCare Products',
+      description: 'Інноваційні продукти для догляду за собаками.',
+      logo: '/src/image/sponsors/happypaws.png',
+    },
+    {
+      id: 3,
+      name: 'HappyPaws Foundation',
+      description: 'Фонд підтримки здоров\'я домашніх тварин.',
+      logo: "/src/image/sponsors/petFood.png",
+    },
+    {
+      id: 4,
+      name: 'VetTech Innovations',
+      description: 'Розробка сучасного ветеринарного обладнання.',
+      logo: '/src/image/sponsors/vettech.png',
+    },
+    {
+      id: 5,
+      name: 'HealthyPaws Nutrition',
+      description: 'Збалансоване харчування для собак.',
+      logo: '/src/image/sponsors/HealthyPaws.png',
+    },
+    {
+      id: 6,
+      name: 'BarkBright Toys',
+      description: 'Іграшки, які роблять собак щасливими.',
+      logo: '/src/image/sponsors/Bark-Bright.png',
+    },
+  ];
     const galleryImages = [
         { id: 1, src: "/src/image/about01.jpg", alt:'Осмотр пса' },
         { id: 2, src: "/src/image/about02.jpg", alt:'Осмотр пса' }, 
@@ -25,9 +66,21 @@ const about =() =>{
         { id: 8, src: "/src/image/about08.jpg", alt:  'Грумінг пса'},
         { id: 9, src: "/src/image/about09.jpg", alt:  'Грумінг пса'}
       ];
+      const handleMouseEnter = (sponsor, event) => {
+        setHoveredSponsor(sponsor);
+        setCursorPosition({ x: event.clientX, y: event.clientY });
+      };
+    
+      const handleMouseMove = (event) => {
+        setCursorPosition({ x: event.clientX, y: event.clientY });
+      };
+    
+      const handleMouseLeave = () => {
+        setHoveredSponsor(null);
+      };
   
     return(
-        <section class="container about-us-description">
+        <section class="container about-us-description mt-3">
             <nav aria-label="breadcrumb">
                <ol className="breadcrumb my-4">
                    <li className="breadcrumb-item"><Link to="/">Головна</Link></li>
@@ -111,6 +164,39 @@ const about =() =>{
       Ваш спокій і їхнє здоров'я — наш пріоритет.
     </p>
   </div>
+  <div className="sponsors-section container">
+      <div className="row justify-content-center align-items-center">
+        {sponsors.map((sponsor) => (
+          <div
+            className="col-md-2 col-sm-4 mb-4 text-center sponsor-item"
+            key={sponsor.id}
+            onMouseEnter={(event) => handleMouseEnter(sponsor, event)}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
+            <img
+              src={sponsor.logo}
+              alt={sponsor.name}
+              className="sponsor-logo img-fluid"
+              
+            />
+          </div>
+        ))}
+      </div>
+
+      {hoveredSponsor && (
+        <div
+          className="sponsor-tooltip"
+          style={{
+            top: cursorPosition.y + 15 + 'px',
+            left: cursorPosition.x + 15 + 'px',
+          }}
+        >
+          <strong>{hoveredSponsor.name}</strong>
+          <p>{hoveredSponsor.description}</p>
+        </div>
+      )}
+    </div>
   <div className="mt-5 ">
       <Swiper
         modules={[Navigation, Pagination]}

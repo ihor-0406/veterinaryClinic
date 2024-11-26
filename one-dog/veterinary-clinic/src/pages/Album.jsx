@@ -124,7 +124,7 @@ const PhotoAlbum = () => {
   };
 
   return (
-    <div className="photo-album">
+    <div className="photo-album bgPet">
       <h2>Фотоальбом</h2>
 
       {/* Відображення фото по улюбленцях */}

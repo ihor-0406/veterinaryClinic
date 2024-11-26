@@ -4,7 +4,7 @@ import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { collection, addDoc, onSnapshot, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../config/firebaseConfig';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw, faUser, faMagnifyingGlass, faBell, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPaw, faUser, faMagnifyingGlass, faBell, faTrash,faHouse , faFlask, faHouseChimneyMedical, faHeadset, faHeart } from '@fortawesome/free-solid-svg-icons';
 import './header.css';
 
 const Header = () => {
@@ -21,13 +21,22 @@ const Header = () => {
     const notificationsCollection = collection(db, 'notifications');
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
             setIsLoggedIn(!!user);
             if (user) {
-                addNotification('Ви успішно увійшли в систему');
+                // Проверяем, не было ли уже уведомления о входе
+                const hasLoggedInNotification = localStorage.getItem('loggedInNotification');
+                if (!hasLoggedInNotification) {
+                    await addNotification('Ви успішно увійшли в систему');
+                    // Помечаем, что уведомление уже было отправлено
+                    localStorage.setItem('loggedInNotification', 'true');
+                }
+            } else {
+                // Убираем флаг, если пользователь вышел
+                localStorage.removeItem('loggedInNotification');
             }
         });
-
+    
         const unsubscribeNotifications = onSnapshot(notificationsCollection, (snapshot) => {
             const fetchedNotifications = snapshot.docs.map((doc) => ({
                 id: doc.id,
@@ -35,7 +44,7 @@ const Header = () => {
             }));
             setNotifications(fetchedNotifications);
         });
-
+    
         return () => {
             unsubscribe();
             unsubscribeNotifications();
@@ -156,39 +165,45 @@ const Header = () => {
                         id="staticBackdrop"
                         aria-labelledby="staticBackdropLabel"
                     >
-                        <div className="offcanvas-header">
-                            <h5 className="offcanvas-title" id="staticBackdropLabel">
-                                <Link className="navbar-brand text-white" to="/">
-                                    <h2 className="poppins-semibold fw-medium logoOnegog">
-                                        One
-                                        <span className="fw-bolder">
-                                            D<FontAwesomeIcon icon={faPaw} style={{ color: '#078550' }} />
-                                            g
-                                        </span>
-                                    </h2>
-                                </Link>
-                            </h5>
-                            <button
-                                type="button"
-                                className="btn-close"
-                                data-bs-dismiss="offcanvas"
-                                aria-label="Close"
-                            ></button>
-                        </div>
-                        <div className="offcanvas-body text-center">
-                            <Link className="nav-link border-top border-black py-2 menu-link" to="/">
-                                Головна
-                            </Link>
-                            <Link className="nav-link border-top border-black py-2 menu-link" to="/services">
-                                Послуги
-                            </Link>
-                            <Link className="nav-link border-top border-black py-2 menu-link" to="/about">
-                                Про нас
-                            </Link>
-                            <Link className="nav-link border-top border-bottom border-black py-2 menu-link" to="/contacts">
-                                Контакти
-                            </Link>
-                        </div>
+                         <div className="offcanvas-header">
+        <h5 className="offcanvas-title" id="staticBackdropLabel">
+            <Link className="navbar-brand text-white" to="/">
+                <h2 className="poppins-semibold fw-medium logoOnegog">
+                    One
+                    <span className="fw-bolder">
+                        D<FontAwesomeIcon icon={faPaw} style={{ color: '#078550' }} />
+                        g
+                    </span>
+                </h2>
+            </Link>
+        </h5>
+        <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+        ></button>
+    </div>
+    <div className="offcanvas-body text-center">
+        <Link className="nav-link border-top border-black py-2 menu-link" to="/">
+        <FontAwesomeIcon icon={faHouse} style={{color: "#000000",}} />   Головна
+        </Link>
+        <Link className="nav-link border-top border-black py-2 menu-link" to="/services">
+        <FontAwesomeIcon icon={faFlask} style={{color: "#000000",}} />  Послуги
+        </Link>
+        <Link className="nav-link border-top border-black py-2 menu-link"  to="/about" >
+        <FontAwesomeIcon icon={faHouseChimneyMedical} style={{color: "#000000",}} /> Про нас
+        </Link>
+        <Link className="nav-link border-top border-bottom border-black py-2 menu-link" to="/contacts" >
+        <FontAwesomeIcon icon={faHeadset} style={{color: "#000000",}} /> Контакти
+        </Link>
+        {/* Добавленный линк с условием показа */}
+        {isLoggedIn && (
+            <Link className="nav-link border-bottom  border-black py-2  menu-link" to="/find-match" >
+            <FontAwesomeIcon icon={faHeart} style={{color: "#db0a0a",}} />    LoveDogs
+            </Link>
+        )}
+    </div>
                     </div> 
                     {/* Логотип */}
                     <div className="logo col-auto d-flex align-items-center justify-content-center mt-1">
@@ -213,7 +228,7 @@ const Header = () => {
                                     <button className="btn user-btn-icon" onClick={toggleNotifications}>
                                         <FontAwesomeIcon icon={faBell} size="lg" />
                                         {notifications.filter((n) => !n.isRead).length > 0 && (
-                                            <span className="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                                            <span className="badge bg-danger position-absolute  rounded-circle top-0 start-100 translate-middle">
                                                 {notifications.filter((n) => !n.isRead).length}
                                             </span>
                                         )}

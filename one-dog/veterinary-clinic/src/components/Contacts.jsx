@@ -79,7 +79,7 @@ const Contacts = () => {
                 </div>
 
                 {/* Форма обратной связи */}
-                <div className="col-md-6 alertBlock">
+                <div className="col-md-6 rounded-4 alertBlock">
                     <h4 className="mb-3">Напишіть нам</h4>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
