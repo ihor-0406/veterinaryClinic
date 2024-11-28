@@ -89,7 +89,7 @@ const about =() =>{
            </nav>
   <div class="d-flex justify-content-between align-items-center about-intro">
     <div className=" p-3 text-center">
-        <h1>Про центр "<span className="logoOnegog">One<span className="fw-bolder">D<FontAwesomeIcon icon={faPaw} style={{ color: "#078550" }} />g</span></span> "</h1>
+        <h1>Про центр "<span className="logoOnegog m-0">One<span className="fw-bolder">D<FontAwesomeIcon icon={faPaw} style={{ color: "#078550" }} />g</span></span> "</h1>
     <p>
       Ласкаво просимо до ветеринарного центру "One Dog" — місця, де ваші улюбленці отримують найкращий догляд, 
       увагу та лікування. Ми спеціалізуємося на комплексних послугах для собак, щоб забезпечити їхнє здоров'я 

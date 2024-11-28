@@ -13,6 +13,7 @@ import './Home.css';
 import saveIMG from "../image/saveBlock.jpg";
 import post1 from "../image/post1.jpg";
 import post2 from "../image/post2.jpg";
+import newsDog from "../image/imageAmimal.png"
 
 
 function Home() {
@@ -117,6 +118,67 @@ function Home() {
       }
     });
   };
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+      const fetchNews = async () => {
+          const apiKey = "008eb5e12ac543abb1d037e828630907";
+          const url = `https://newsapi.org/v2/everything?q=тварини OR ветеринарія OR пес OR кішка&language=uk&pageSize=10&apiKey=${apiKey}`;
+
+          try {
+              const response = await fetch(url);
+              if (!response.ok) {
+                  throw new Error("Помилка при завантаженні новин");
+              }
+              const data = await response.json();
+              setArticles(data.articles);
+              setLoading(false);
+          } catch (error) {
+              setError(error.message);
+              setLoading(false);
+          }
+      };
+
+      fetchNews();
+  }, []);
+
+  const questionsAndAnswers = [
+      {
+          question: "Скільки разів на день потрібно гуляти з собакою?",
+          answer:
+              "Дорослих собак рекомендується вигулювати 2–3 рази на день. Щенята потребують більше прогулянок, щоб привчитися до гігієни.",
+      },
+      {
+          question: "Як часто потрібно годувати собаку?",
+          answer:
+              "Дорослих собак годують двічі на день — вранці та ввечері. Щенят потрібно годувати частіше, до 4–6 разів на день залежно від віку.",
+      },
+      {
+          question: "Чи потрібно чистити зуби собаці?",
+          answer:
+              "Так, регулярне чищення зубів допомагає запобігти хворобам ясен і зубів. Використовуйте спеціальні щітки та пасти для собак.",
+      },
+      {
+          question: "Як обрати правильний корм для собаки?",
+          answer:
+              "Обирайте корм відповідно до віку, розміру та активності собаки. Проконсультуйтеся з ветеринаром для вибору найкращого варіанту.",
+      },
+      {
+          question: "Що робити, якщо собака постійно чухається?",
+          answer:
+              "Чухання може бути викликане алергією, паразитами чи шкірними захворюваннями. Зверніться до ветеринара для діагностики та лікування.",
+      },
+  ];
+
+  if (loading) {
+      return <div>Завантаження новин...</div>;
+  }
+
+  if (error) {
+      return <div>Помилка: {error}</div>;
+  }
     return (
         <section className="container">
             {/* Блок із загальною інформацією про центр */}
@@ -161,26 +223,26 @@ function Home() {
                 </div>
             </div>
             <div className="grooming-promotion">
-      <div className="promotion-content">
-        <div className="textSection">
-        <h1 className='title'>Грумінг для вашої собаки</h1>
-            <p className="px-3 subtitle">
-              Встигніть записатися на професійний грумінг до <span className='highlight'>23 грудня</span> та
-              отримайте знижку <span className='highlight'>20%!</span>
-            </p>
-            <div className="timer"><span className='time-text'>{timeLeft}</span></div>
+             <div className="promotion-content">
+               <div className="textSection">
+                   <h1 className='title'>Грумінг для вашої собаки</h1>
+                    <p className="px-3 subtitle">
+                    Встигніть записатися на професійний грумінг до <span className='highlight'>23 грудня</span> та
+                    отримайте знижку <span className='highlight'>20%!</span>
+                    </p>
+              <div className="timer"><span className='time-text'>{timeLeft}</span></div>
           </div>
-        <div className="show-container">
-          <img className='grooming-img'
-            src={saveIMG}
-            alt="Груминг"
-            width={'350px'}
-            height={'450px'}
-          />
-        </div>
+            <div className="show-container">
+              <img className='grooming-img'
+                src={saveIMG}
+                alt="Груминг"
+                width={'350px'}
+                height={'450px'}
+               />
+            </div>
       </div>
     </div>
-    <div className="container mt-5">
+    <div className="container mt-5 ">
             <div className="post-section mt-5 position-relative">
                 <div className="lapki-container">
                     {[...Array(10)].map((_, i) => (
@@ -198,7 +260,7 @@ function Home() {
                     ))}
                 </div>
                 <div className="row align-items-center">
-                    <div className="col-lg-8 post-text">
+                    <div className="col-md-8 post-text">
                         <h1>Місце, де народжується дружба</h1>
                         <p>
                             Наш центр — це місце, де починається справжня дружба. Ми піклуємось про кожну собаку, щоб вона відчувала себе потрібною та коханою. <FontAwesomeIcon icon="fa-solid fa-paw" style={{color: "#41b995",}} />
@@ -207,7 +269,7 @@ function Home() {
                             Наша команда завжди поруч, щоб знайти для кожного улюбленця найкращу родину. Завітайте до нас та переконайтесь, що тут здійснюються мрії! <FontAwesomeIcon icon="fa-solid fa-heart" style={{color: "#bc1d01",}} />
                         </p>
                     </div>
-                    <div className="col-lg-4 post-image">
+                    <div className="col-md-4 post-image">
                         <img src={post1} alt="Місце, де народжується дружба" className="img-fluid rounded" />
                     </div>
                 </div>
@@ -230,10 +292,10 @@ function Home() {
                     ))}
                 </div>
                 <div className="row align-items-center">
-                    <div className="col-lg-4 post-image">
+                    <div className="col-md-4 post-image">
                         <img src={post2} alt="Ми піклуємось про кожного" className="img-fluid rounded" />
                     </div>
-                    <div className="col-lg-8 post-text">
+                    <div className="col-md-8 post-text">
                         <h1>Ми піклуємось про кожного</h1>
                         <p>
                             Ми у "OneDog" знаємо, наскільки важливою є турбота. Наша місія — допомогти кожній собаці знайти люблячу родину. <FontAwesomeIcon icon="fa-solid fa-sun" style={{color: "#FFD43B",}} />
@@ -280,6 +342,38 @@ function Home() {
                     ))}
                 </Swiper>
             </div>
+            <div className="container containerNews my-3 d-flex justify-content-between gap-2">
+    <div className='newsBlock col-md-8'>
+       <div className="news-column">
+        <h2>Новини про тварин</h2>
+        <ul className="news-list">
+            {articles.map((article, index) => (
+                <li key={index} className="news-item">
+                    <a href={article.url} target="_blank" rel="noopener noreferrer">
+                        <h3>{article.title}</h3>
+                    </a>
+                    <p>{article.description}</p>
+                    <small>Джерело: {article.source.name}</small>
+                </li>
+            ))}
+        </ul>
+    </div>
+    <div className="imgNews d-flex justify-content-center">
+        <img src={newsDog} alt="News Animals" width="100%" />
+    </div>
+    </div>
+    <div className="info-column col-md-4">
+        <h2>Питання та відповіді</h2>
+        <ul className="qa-list">
+            {questionsAndAnswers.map((qa, index) => (
+                <li key={index} className="qa-item">
+                    <h3>{qa.question}</h3>
+                    <p>{qa.answer}</p>
+                </li>
+            ))}
+        </ul>
+    </div>
+</div>
         </section>
     );
 }

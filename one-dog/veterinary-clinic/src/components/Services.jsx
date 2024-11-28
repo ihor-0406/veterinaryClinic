@@ -101,7 +101,7 @@ function Services() {
                      
                     </div>
                     <div className="card-footer bg-info-subtle text-center">
-                        <Link to="/cynology" className="fs-3 fw-bold text-black text-decoration-none">Кінологічний центр</Link>
+                        <Link to="/cynology" className="fs-3 fw-bold text-black text-decoration-none ">Кінологічний центр</Link>
                    </div>
                    </div>
                </div>

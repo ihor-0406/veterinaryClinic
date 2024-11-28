@@ -251,4 +251,7 @@
     align-items: center;
     flex-direction: column;
   }
+  .reverse{
+    flex-direction: column-reverse;
+  }
 }

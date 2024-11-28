@@ -111,7 +111,7 @@
   }
   @media (max-width: 576px){
     .about-intro h1{
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
     .about-intro{
         display: flex;
@@ -127,8 +127,4 @@
         width: 100%;
     }
   }
-  @media (max-width: 400px){
-    .about-intro h1{
-        font-size: 1.1rem;
-    }
-  }
+  

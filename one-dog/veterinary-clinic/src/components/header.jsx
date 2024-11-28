@@ -3,7 +3,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { collection, addDoc, onSnapshot, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../config/firebaseConfig';
+import "bootstrap/dist/css/bootstrap.min.css"; // Подключение CSS
+import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Подключение JS
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Navbar, Nav, Offcanvas } from 'react-bootstrap';
 import { faPaw, faUser, faMagnifyingGlass, faBell, faTrash,faHouse , faFlask, faHouseChimneyMedical, faHeadset, faHeart } from '@fortawesome/free-solid-svg-icons';
 import './header.css';
 
@@ -137,74 +140,75 @@ const Header = () => {
             <header className="container header">
                 <nav className="row d-flex justify-content-between align-items-center">
                     {/* Меню */}
-                    <button
-                        className="btn bg-transparent col-auto  p-1 ms-3 btnMenu"
-                        type="button"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#staticBackdrop"
-                        aria-controls="staticBackdrop"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="30"
-                            height="30"
-                            fill="black"
-                            className="bi bi-list"
-                            viewBox="0 0 16 16"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
-                            ></path>
-                        </svg>
-                    </button>
-                    <div
-                        className="offcanvas offcanvas-start menuBox"
-                        data-bs-backdrop="static"
-                        tabIndex="-1"
-                        id="staticBackdrop"
-                        aria-labelledby="staticBackdropLabel"
-                    >
-                         <div className="offcanvas-header">
-        <h5 className="offcanvas-title" id="staticBackdropLabel">
-            <Link className="navbar-brand text-white" to="/">
-                <h2 className="poppins-semibold fw-medium logoOnegog">
-                    One
-                    <span className="fw-bolder">
-                        D<FontAwesomeIcon icon={faPaw} style={{ color: '#078550' }} />
-                        g
-                    </span>
-                </h2>
-            </Link>
-        </h5>
-        <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-        ></button>
-    </div>
-    <div className="offcanvas-body text-center">
-        <Link className="nav-link border-top border-black py-2 menu-link" to="/">
-        <FontAwesomeIcon icon={faHouse} style={{color: "#000000",}} />   Головна
-        </Link>
-        <Link className="nav-link border-top border-black py-2 menu-link" to="/services">
-        <FontAwesomeIcon icon={faFlask} style={{color: "#000000",}} />  Послуги
-        </Link>
-        <Link className="nav-link border-top border-black py-2 menu-link"  to="/about" >
-        <FontAwesomeIcon icon={faHouseChimneyMedical} style={{color: "#000000",}} /> Про нас
-        </Link>
-        <Link className="nav-link border-top border-bottom border-black py-2 menu-link" to="/contacts" >
-        <FontAwesomeIcon icon={faHeadset} style={{color: "#000000",}} /> Контакти
-        </Link>
-        {/* Добавленный линк с условием показа */}
-        {isLoggedIn && (
-            <Link className="nav-link border-bottom  border-black py-2  menu-link" to="/find-match" >
-            <FontAwesomeIcon icon={faHeart} style={{color: "#db0a0a",}} />    LoveDogs
-            </Link>
-        )}
-    </div>
-                    </div> 
+                    <Navbar bg="light" expand={false} className="col-1 ms-3 ">
+            <Navbar.Toggle
+                aria-controls="offcanvasNavbar"
+                className="border-0 bg-transparent p-1 rounded-circle iconMenu"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="black"
+                    className="bi bi-list "
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        fillRule="evenodd"
+                        d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+                    ></path>
+                </svg>
+            </Navbar.Toggle>
+            <Navbar.Offcanvas
+                id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel"
+                placement="start"
+                className="menuBox"
+            >
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title id="offcanvasNavbarLabel">
+                        <Link className="navbar-brand text-dark " to="/">
+                            <h2 className="poppins-semibold fw-medium logoOnegog">
+                                One
+                                <span className="fw-bolder">
+                                    D
+                                    <FontAwesomeIcon
+                                        icon={faPaw}
+                                        style={{ color: '#078550' }}
+                                    />
+                                    g
+                                </span>
+                            </h2>
+                        </Link>
+                    </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <Nav className="flex-column text-center">
+                        <Link className="nav-link py-2 menu-link" to="/">
+                            <FontAwesomeIcon icon={faHouse} style={{ color: '#000000' }} /> Головна
+                        </Link>
+                        <Link className="nav-link py-2 menu-link" to="/services">
+                            <FontAwesomeIcon icon={faFlask} style={{ color: '#000000' }} /> Послуги
+                        </Link>
+                        <Link className="nav-link py-2 menu-link" to="/about">
+                            <FontAwesomeIcon
+                                icon={faHouseChimneyMedical}
+                                style={{ color: '#000000' }}
+                            />
+                            Про нас
+                        </Link>
+                        {isLoggedIn && (
+                            <Link className="nav-link py-2 menu-link" to="/find-match">
+                                <FontAwesomeIcon icon={faHeart} style={{ color: '#db0a0a' }} /> LoveDogs
+                            </Link>
+                        )}
+                        <Link className="nav-link py-2 menu-link" to="/contacts">
+                            <FontAwesomeIcon icon={faHeadset} style={{ color: '#000000' }} /> Контакти
+                        </Link>
+                    </Nav>
+                </Offcanvas.Body>
+            </Navbar.Offcanvas>
+        </Navbar>
                     {/* Логотип */}
                     <div className="logo col-auto d-flex align-items-center justify-content-center mt-1">
                         <Link className="navbar-brand text-white" to="/"><h2 className="poppins-semibold fw-medium logoOnegog mb-0">
@@ -221,11 +225,11 @@ const Header = () => {
                     <div className="user-panel col-auto d-flex justify-content-end align-items-center gap-2">
                         {isLoggedIn ? (
                             <>
-                                <button className="btn user-btn-icon" onClick={toggleSearch}>
+                                <button className="btn user-btn-icon  rounded-circle iconMenu" onClick={toggleSearch}>
                                     <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
                                 </button>
                                 <div className="position-relative" ref={notificationsRef}>
-                                    <button className="btn user-btn-icon" onClick={toggleNotifications}>
+                                    <button className="btn user-btn-icon  rounded-circle iconMenu" onClick={toggleNotifications}>
                                         <FontAwesomeIcon icon={faBell} size="lg" />
                                         {notifications.filter((n) => !n.isRead).length > 0 && (
                                             <span className="badge bg-danger position-absolute  rounded-circle top-0 start-100 translate-middle">
@@ -262,7 +266,7 @@ const Header = () => {
                                 </div>
                                 <div className="nav-item dropdown user-dropdown">
                                     <button
-                                        className="btn user-btn-icon dropdown"
+                                        className="btn user-btn-icon dropdown  rounded-circle iconMenu"
                                         data-bs-toggle="dropdown"
                                         aria-expanded="false"
                                         aria-label="Меню профіля"
